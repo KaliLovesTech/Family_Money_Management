@@ -1,11 +1,12 @@
 from django.urls import path
 from . import views
 
-app_name = 'common'  # Set the app name for namespacing
+app_name = 'common'
 
 urlpatterns = [
-    # Example route: a shared dashboard or user profile
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('profile/', views.profile, name='profile'),
-    # Add more common routes as needed
+    # profile
+    path('profile/', views.profile_view, name='profile'),
+    path('profile/change-password/', views.change_password, name='change_password'),
+    # dashboard 
+    path('dashboard/', views.dashboard_view, name='dashboard'),
 ]

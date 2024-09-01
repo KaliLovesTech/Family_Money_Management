@@ -1,13 +1,76 @@
 {% extends 'base.html' %}
-
-{% block title %}
-Profile - Family Money
-{% endblock %}
+<!-- prettier ignore -->
+{% load static %}
+<!-- prettier ignore -->
+{% load crispy_forms_tags %}
+<!-- prettier ignore -->
+{% block title %} Profile - Family Money {% endblock %}
+<!-- prettier ignore -->
 
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">User Profile</h1>
-    <p>Manage your personal information and account settings.</p>
-    <!-- Add more profile content here -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="text-center">
+        {% if profile_form.instance.profile_picture %}
+        <img
+          src="{{ profile_form.instance.profile_picture.url }}"
+          class="rounded-circle img-thumbnail"
+          alt="Profile Picture"
+        />
+        {% else %}
+        <img
+          src="{% static 'images/default_profile.png' %}"
+          class="rounded-circle img-thumbnail"
+          alt="Profile Picture"
+        />
+        {% endif %}
+        <h2>
+          {{ user_form.instance.first_name }} {{ user_form.instance.last_name }}
+        </h2>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <h3>Edit Profile</h3>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">{{ user_form.first_name|as_crispy_field }}</div>
+          <div class="col-md-6">{{ user_form.last_name|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">{{ user_form.email|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">{{ profile_form.bio|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            {{ profile_form.location|as_crispy_field }}
+          </div>
+          <div class="col-md-6">
+            {{ profile_form.birth_date|as_crispy_field }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            {{ profile_form.phone_number|as_crispy_field }}
+          </div>
+          <div class="col-md-6">{{ profile_form.address|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            {{ profile_form.profile_picture|as_crispy_field }}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </form>
+      <hr />
+      <a href="{% url 'common:change_password' %}" class="btn btn-warning"
+        >Change Password</a
+      >
+    </div>
+  </div>
 </div>
 {% endblock %}

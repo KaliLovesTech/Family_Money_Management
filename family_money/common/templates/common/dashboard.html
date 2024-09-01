@@ -1,13 +1,249 @@
 {% extends 'base.html' %}
-
-{% block title %}
-Dashboard - Family Money
-{% endblock %}
-
+<!-- prettier ignore -->
+{% block title %} Dashboard - Family Money {% endblock %}
+<!-- prettier ignore -->
 {% block content %}
-<div class="container">
-    <h1 class="mt-5">Dashboard</h1>
-    <p>Overview of your financial activities.</p>
-    <!-- Add more dashboard content here -->
+<div class="container mt-5">
+  <h1>Dashboard</h1>
+  <p class="lead">Overview of your financial activities.</p>
+
+  <!-- Account Balances Section -->
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-header">Checking Account</div>
+        <div class="card-body">
+          <h5 class="card-title">$5,678.90</h5>
+          <p class="card-text">Available balance.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success mb-3">
+        <div class="card-header">Savings Account</div>
+        <div class="card-body">
+          <h5 class="card-title">$3,456.78</h5>
+          <p class="card-text">Towards your savings goals.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-warning mb-3">
+        <div class="card-header">Investment Account</div>
+        <div class="card-body">
+          <h5 class="card-title">$10,789.01</h5>
+          <p class="card-text">Current portfolio value.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-danger mb-3">
+        <div class="card-header">Upcoming Bills</div>
+        <div class="card-body">
+          <h5 class="card-title">$789.01</h5>
+          <p class="card-text">Due in the next 30 days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Investment Snapshot Section -->
+  <div class="mt-5">
+    <h3>Investment Snapshot</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <div class="card-header">Portfolio Breakdown</div>
+          <div class="card-body">
+            <canvas id="investmentChart"></canvas>
+            <p class="card-text mt-3">
+              Overview of your investment distribution.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <div class="card-header">Performance Summary</div>
+          <div class="card-body">
+            <p class="card-text">
+              <strong>Total Investment:</strong> $10,789.01
+            </p>
+            <p class="card-text">
+              <strong>Year-to-Date Gain:</strong> +$1,234.56
+            </p>
+            <p class="card-text"><strong>Top Performer:</strong> S&P 500 ETF</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Transactions Section -->
+  <div class="mt-5">
+    <h3>Recent Transactions</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024-08-30</td>
+          <td>Grocery Store</td>
+          <td>Groceries</td>
+          <td>-$123.45</td>
+        </tr>
+        <tr>
+          <td>2024-08-29</td>
+          <td>Salary</td>
+          <td>Income</td>
+          <td>$2,000.00</td>
+        </tr>
+        <tr>
+          <td>2024-08-28</td>
+          <td>Electric Bill</td>
+          <td>Utilities</td>
+          <td>-$150.00</td>
+        </tr>
+        <!-- Add more transactions as needed -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Savings Goals Progress Section -->
+  <div class="mt-5">
+    <h3>Savings Goals Progress</h3>
+    <div class="progress mb-3">
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+        role="progressbar"
+        style="width: 70%"
+        aria-valuenow="70"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        70% - Vacation Fund
+      </div>
+    </div>
+    <div class="progress mb-3">
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+        role="progressbar"
+        style="width: 45%"
+        aria-valuenow="45"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        45% - Emergency Fund
+      </div>
+    </div>
+    <div class="progress mb-3">
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+        role="progressbar"
+        style="width: 25%"
+        aria-valuenow="25"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        25% - New Car Fund
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Bills Section -->
+  <div class="mt-5">
+    <h3>Upcoming Bills</h3>
+    <ul class="list-group">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        Rent - $1,200.00
+        <span class="badge bg-danger rounded-pill">Due in 5 days</span>
+      </li>
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        Internet - $50.00
+        <span class="badge bg-warning rounded-pill">Due in 10 days</span>
+      </li>
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        Credit Card - $200.00
+        <span class="badge bg-danger rounded-pill">Due in 15 days</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Budget Overview Section -->
+  <div class="mt-5">
+    <h3>Budget Overview</h3>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Monthly Budget</h5>
+        <p class="card-text">
+          You’ve spent $2,500 out of your $3,000 budget this month.
+        </p>
+        <div class="progress">
+          <div
+            class="progress-bar bg-success"
+            role="progressbar"
+            style="width: 83%"
+            aria-valuenow="83"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            83%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+{% endblock %} {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Investment Portfolio Breakdown Chart
+  var ctx = document.getElementById("investmentChart").getContext("2d");
+  var investmentChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Stocks", "Bonds", "Real Estate", "Commodities", "Cash"],
+      datasets: [
+        {
+          label: "Investment Portfolio",
+          data: [50, 20, 15, 10, 5],
+          backgroundColor: [
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+          ],
+          borderColor: [
+            "rgba(54, 162, 235, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 99, 132, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        position: "right",
+      },
+    },
+  });
+</script>
 {% endblock %}
