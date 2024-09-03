@@ -9,15 +9,13 @@ def home_view(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
-     # Allauth URLs
-    path('accounts/', include('allauth.urls')),
-
-    # Home Page
     path('', home_view, name='home'),
-    
-    # Include app URLs here as you create them
-    path('common/', include('common.urls')),  
+    path('users/', include('users.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('common/', include('common.urls', namespace='common')),
+    path('financials/', include('financials.urls', namespace='financials')),
+    path('chatbot/', include('chatbot.urls', namespace='chatbot')),
+    path('notifications/', include('notifications.urls', namespace='notifications')),
 ]
 
 if settings.DEBUG:

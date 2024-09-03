@@ -1,16 +1,93 @@
-<!-- family_money/templates/home.html -->
 {% extends 'base.html' %}
+<!-- prettier ignore -->
+{% load static %}
 
-{% block title %}
-Home - Family Money
-{% endblock %}
+<!-- prettier ignore -->
+{% block title %} Home - Family Money {% endblock %}
+<!-- prettier ignore -->
 
 {% block content %}
-<div class="jumbotron">
+<!-- Jumbotron Section -->
+<div class="jumbotron text-center bg-light py-5">
+  <div class="container">
     <h1 class="display-4">Welcome to Family Money</h1>
-    <p class="lead">Manage your finances efficiently with our tools for budgeting, bill payments, savings, and investments.</p>
-    <hr class="my-4">
-    <p>Get started by exploring the features below.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Manage Budget</a>
+    <p class="lead">
+      Take control of your finances with our comprehensive tools.
+    </p>
+    <hr class="my-4" />
+    <p>Whether it's budgeting, saving, or investing, we've got you covered.</p>
+    <a
+      class="btn btn-primary btn-lg mt-3"
+      href="{% url 'common:dashboard' %}"
+      role="button"
+      >Get Started</a
+    >
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Manage Budget</h5>
+          <p class="card-text flex-grow-1">
+            Track and manage your budget to ensure you’re on top of your
+            finances.
+          </p>
+          <a href="#" class="btn btn-primary mt-auto">Manage Budget</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Pay Bills</h5>
+          <p class="card-text flex-grow-1">
+            Stay on top of your bills and avoid late fees with our easy-to-use
+            bill payment system.
+          </p>
+          <a href="#" class="btn btn-success mt-auto">Pay Bills</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Set Savings Goals</h5>
+          <p class="card-text flex-grow-1">
+            Define and track your savings goals to reach your financial
+            objectives faster.
+          </p>
+          <a href="#" class="btn btn-warning mt-auto">Set Goals</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="container mt-5 text-center">
+  <h2 class="display-5">Ready to Get Started?</h2>
+  <p class="lead">
+    Sign up or log in to start managing your finances efficiently.
+  </p>
+  <div class="d-flex justify-content-center">
+    <a
+      class="btn btn-primary btn-lg"
+      href="{% url 'account_signup' %}"
+      role="button"
+      >Sign Up Now
+    </a>
+    <!-- prettier ignore -->
+    <a
+      class="btn btn-outline-secondary btn-lg ms-3"
+      href="{% url 'account_login' %}"
+      role="button"
+      >Login
+    </a>
+    <!-- prettier ignore -->
+  </div>
 </div>
 {% endblock %}

@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'common',
     'crispy_forms',
     'crispy_bootstrap5',
+    'users',
+    'financials',
+    'notifications',
+    'chatbot',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -56,8 +60,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ############################ All Auth #############################################################
 
-ACCOUNT_FORMS = {'signup': 'common.forms.CustomSignupForm'}
-LOGIN_REDIRECT_URL = '/common/profile/'
+ACCOUNT_FORMS = {'signup': 'users.forms.CustomSignupForm'}
+LOGIN_REDIRECT_URL = '/users/profile/'
 
 # Required for allauth
 AUTHENTICATION_BACKENDS = [
@@ -175,3 +179,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kalilovestech@gmail.com'
 EMAIL_HOST_PASSWORD = 'B1@ckF@m1y2020'
 ACCOUNT_EMAIL_VERIFICATION = "none"
+DEFAULT_FROM_EMAIL = 'Family Money <noreply@your-domain.com>'

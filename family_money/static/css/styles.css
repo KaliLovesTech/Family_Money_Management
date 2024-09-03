@@ -1,28 +1,80 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    color: #333;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
 main {
-    padding: 2rem;
+  padding: 2rem;
+  padding-bottom: 100px; /* Increased padding to ensure space at the bottom */
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  position: relative; /* Ensures the footer stays at the bottom */
+  margin-top: 50px;
+  width: 100%;
+}
+
+.container {
+  padding-bottom: 50px;
+}
+
+.jumbotron {
+  margin-bottom: 50px;
+}
+
+.d-flex {
+  padding-bottom: 50px;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+.card-title,
+.card-text {
+  font-size: 0.9rem;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+/* Additional styles to prevent content cutoff */
+.container.mt-5.text-center {
+  margin-bottom: 100px; /* Ensures the bottom CTA section is not cut off */
+}
+
+@media (max-width: 768px) {
+  .jumbotron {
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    padding-bottom: 30px;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container.mt-5.text-center {
+    margin-bottom: 50px; /* Adjusted margin for smaller screens */
+  }
 }
