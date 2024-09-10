@@ -54,4 +54,4 @@ def onboarding_view(request):
 
 @receiver(user_signed_up)
 def redirect_to_onboarding(request, user, **kwargs):
-    return redirect('users:profile')
+    return redirect('users:onboarding')
