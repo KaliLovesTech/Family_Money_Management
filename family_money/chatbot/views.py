@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import requests
 import json
@@ -6,7 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-@login_required
+
 def get_chatbot_response_view(request):
     if request.method == 'POST':
         try:

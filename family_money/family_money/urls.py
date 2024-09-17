@@ -10,10 +10,9 @@ def home_view(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('users/', include('users.urls')),
-    path('accounts/', include('allauth.urls')),
     path('common/', include('common.urls', namespace='common')),
     path('financials/', include('financials.urls', namespace='financials')),
+    path('investments/', include('investments.urls', namespace='investments')),
     path('chatbot/', include('chatbot.urls', namespace='chatbot')),
     path('notifications/', include('notifications.urls', namespace='notifications')),
 ]

@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %}
+<!-- prettier ignore -->
+{% block content %}
+<h1>{% if object %}Edit Income{% else %}Add New Income{% endif %}</h1>
+<form method="POST" class="mb-3">
+  {% csrf_token %} {{ form|crispy }}
+  <button type="submit" class="btn btn-primary mt-3">Save</button>
+  <a href="{% url 'financials:income_list' %}" class="btn btn-secondary mt-3"
+    >Cancel</a
+  >
+</form>
+{% endblock %}

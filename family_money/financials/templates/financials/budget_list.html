@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Budgets</h2>
+
+  <a href="{% url 'financials:budget_create' %}" class="btn btn-success mb-3"
+    >Add New Budget</a
+  >
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for budget in budgets %}
+      <tr>
+        <th>{{ forloop.counter }}</th>
+        <td>{{ budget.name }}</td>
+        <td>{{ budget.amount }}</td>
+        <td>{{ budget.start_date }}</td>
+        <td>{{ budget.end_date }}</td>
+        <td>
+          <a
+            href="{% url 'financials:budget_update' budget.pk %}"
+            class="btn btn-warning btn-sm"
+            >Edit</a
+          >
+          <a href="#" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

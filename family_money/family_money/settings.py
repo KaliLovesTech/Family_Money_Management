@@ -40,19 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # User Authentication
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
     # Apps
     'common',
     'crispy_forms',
     'crispy_bootstrap5',
-    'users',
     'financials',
     'notifications',
     'chatbot',
+    'investments',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -60,8 +55,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ############################ All Auth #############################################################
 
-ACCOUNT_FORMS = {'signup': 'users.forms.CustomSignupForm'}
-LOGIN_REDIRECT_URL = '/users/profile/'
+LOGIN_REDIRECT_URL = '/common/profile/'
 
 # Required for allauth
 AUTHENTICATION_BACKENDS = [
@@ -83,14 +77,12 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
-    # Allauth middleware
-    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'family_money.urls'
@@ -160,7 +152,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Global static files directory
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Ensure this path is correct
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this is set
 
 # Media files
 MEDIA_URL = '/media/'

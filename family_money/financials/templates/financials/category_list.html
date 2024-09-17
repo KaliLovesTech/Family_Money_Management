@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+{% block content %}
+<div class="container mt-5">
+  <h1>Your Categories</h1>
+
+  {% if object_list %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in object_list %}
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a
+                href="{% url 'financials:category_edit' category.pk %}"
+                class="btn btn-sm btn-warning"
+                >Edit</a
+              >
+              <a
+                href="{% url 'financials:category_delete' category.pk %}"
+                class="btn btn-sm btn-danger"
+                >Delete</a
+              >
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-center">No categories found.</p>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'financials:category_create' %}" class="btn btn-primary"
+      >Add a New Category</a
+    >
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+{% block content %}
+<div class="container mt-5">
+  <h1>Your Bills</h1>
+
+  {% if bills %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Due Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bill in bills %}
+        <tr>
+          <td>{{ bill.name }}</td>
+          <td>${{ bill.amount }}</td>
+          <td>{{ bill.due_date }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a
+                href="{% url 'financials:bill_edit' bill.pk %}"
+                class="btn btn-sm btn-warning"
+                >Edit</a
+              >
+              <a
+                href="{% url 'financials:bill_delete' bill.pk %}"
+                class="btn btn-sm btn-danger"
+                >Delete</a
+              >
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-center">No bills found.</p>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'financials:bill_create' %}" class="btn btn-primary"
+      >Add a New Bill</a
+    >
+  </div>
+</div>
+{% endblock %}

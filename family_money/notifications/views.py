@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -6,7 +5,7 @@ from django.http import JsonResponse
 from financials.models import Bill, SavingsGoal
 import datetime
 
-@login_required
+
 def send_upcoming_bills_email_view(request):
     user = request.user
     bills = Bill.objects.filter(user=user, due_date__gte=datetime.now())  # Example filter for upcoming bills
@@ -20,7 +19,7 @@ def send_upcoming_bills_email_view(request):
     send_mail(subject, plain_message, from_email, [to], html_message=html_message)
     return JsonResponse({'status': 'Email sent successfully'})
 
-@login_required
+
 def send_weekly_digest_email_view(request):
     user = request.user
     accounts = user.accounts.all()  # Example: fetching user's accounts

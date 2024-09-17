@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Your Expenses</h1>
+
+  {% if expenses %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for expense in expenses %}
+        <tr>
+          <td>{{ expense.category }}</td>
+          <td>${{ expense.amount }}</td>
+          <td>{{ expense.date }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <a
+                href="{% url 'financials:expense_edit' expense.pk %}"
+                class="btn btn-sm btn-warning"
+                >Edit</a
+              >
+              <a
+                href="{% url 'financials:expense_delete' expense.pk %}"
+                class="btn btn-sm btn-danger"
+                >Delete</a
+              >
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-center">No expenses found.</p>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'financials:expense_create' %}" class="btn btn-primary"
+      >Add a New Expense</a
+    >
+  </div>
+</div>
+{% endblock %}

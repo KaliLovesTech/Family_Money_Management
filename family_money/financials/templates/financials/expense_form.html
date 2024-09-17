@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %}
+<!-- prettier ignore -->
+
+{% block content %}
+<h1>Add New Expense</h1>
+
+<form method="POST" class="mb-3">
+  {% csrf_token %}
+  <div class="form-group">
+    <!-- Category dropdown with link to edit categories -->
+    {{ form.category.label_tag }} {{ form.category }}
+    <a
+      href="{% url 'financials:category_list' %}"
+      class="btn btn-secondary btn-sm ml-3"
+    >
+      Edit Categories
+    </a>
+  </div>
+
+  <!-- Amount input field -->
+  <div class="form-group">{{ form.amount.label_tag }} {{ form.amount }}</div>
+
+  <!-- Date input field -->
+  <div class="form-group">{{ form.date.label_tag }} {{ form.date }}</div>
+
+  <!-- Submit and Cancel buttons -->
+  <button type="submit" class="btn btn-primary mt-3">Save</button>
+  <a href="{% url 'financials:expense_list' %}" class="btn btn-secondary mt-3"
+    >Cancel</a
+  >
+</form>
+
+{% endblock %}

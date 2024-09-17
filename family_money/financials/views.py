@@ -1,86 +1,185 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-import requests
-import logging
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .models import Bill, SavingsGoal, Budget, Expense, Income, Category
+from .forms import BillForm, SavingsGoalForm, BudgetForm, ExpenseForm, IncomeForm, CategoryForm
 
-logger = logging.getLogger(__name__)
 
-@login_required
-def get_stock_info_view(request):
-    symbol = request.GET.get('symbol', 'AAPL')  # Default to AAPL if no symbol provided
-    url = "https://yahoo-finance160.p.rapidapi.com/info"
-    payload = {"symbol": symbol}
-    headers = {
-        "x-rapidapi-key": "847ba95febmshc5c3ba75afc88a2p1ec10bjsnf5eb2eaa4310",
-        "x-rapidapi-host": "yahoo-finance160.p.rapidapi.com",
-        "Content-Type": "application/json"
-    }
+# Bills
+class BillListView(ListView):
+    model = Bill
+    template_name = 'financials/bill_list.html'
+    context_object_name = 'bills'
 
-    response = requests.post(url, json=payload, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        return JsonResponse(data)
-    else:
-        logger.error(f"Failed to fetch stock info for {symbol}: {response.status_code}")
-        return JsonResponse({'error': 'Failed to fetch stock info'}, status=response.status_code)
+    def get_queryset(self):
+        # Return all bills
+        return Bill.objects.all()
 
-@login_required
-def get_company_financials_view(request):
-    symbol = request.GET.get('symbol', 'AAPL')
-    url = "https://yahoo-finance160.p.rapidapi.com/financials"
-    payload = {"symbol": symbol}
-    headers = {
-        "x-rapidapi-key": "847ba95febmshc5c3ba75afc88a2p1ec10bjsnf5eb2eaa4310",
-        "x-rapidapi-host": "yahoo-finance160.p.rapidapi.com",
-        "Content-Type": "application/json"
-    }
 
-    response = requests.post(url, json=payload, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        return JsonResponse(data)
-    else:
-        logger.error(f"Failed to fetch financials for {symbol}: {response.status_code}")
-        return JsonResponse({'error': 'Failed to fetch financials'}, status=response.status_code)
+class BillCreateView(CreateView):
+    model = Bill
+    form_class = BillForm
+    template_name = 'financials/bill_form.html'
+    success_url = reverse_lazy('financials:bill_list')
 
-@login_required
-def get_stock_history_view(request):
-    symbol = request.GET.get('symbol', 'AAPL')
-    url = "https://yahoo-finance160.p.rapidapi.com/history"
-    payload = {"symbol": symbol}
-    headers = {
-        "x-rapidapi-key": "847ba95febmshc5c3ba75afc88a2p1ec10bjsnf5eb2eaa4310",
-        "x-rapidapi-host": "yahoo-finance160.p.rapidapi.com",
-        "Content-Type": "application/json"
-    }
 
-    response = requests.post(url, json=payload, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        return JsonResponse(data)
-    else:
-        logger.error(f"Failed to fetch history for {symbol}: {response.status_code}")
-        return JsonResponse({'error': 'Failed to fetch stock history'}, status=response.status_code)
+class BillUpdateView(UpdateView):
+    model = Bill
+    form_class = BillForm
+    template_name = 'financials/bill_form.html'
+    success_url = reverse_lazy('financials:bill_list')
 
-@login_required
-def get_market_news_view(request):
-    symbol = request.GET.get('symbol', 'AAPL')
-    url = "https://yahoo-finance160.p.rapidapi.com/stocknews"
-    payload = {"symbol": symbol}
-    headers = {
-        "x-rapidapi-key": "847ba95febmshc5c3ba75afc88a2p1ec10bjsnf5eb2eaa4310",
-        "x-rapidapi-host": "yahoo-finance160.p.rapidapi.com",
-        "Content-Type": "application/json"
-    }
 
-    response = requests.post(url, json=payload, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        return JsonResponse(data)
-    else:
-        logger.error(f"Failed to fetch market news for {symbol}: {response.status_code}")
-        return JsonResponse({'error': 'Failed to fetch market news'}, status=response.status_code)
-    
+class BillDeleteView(DeleteView):
+    model = Bill
+    template_name = 'financials/bill_confirm_delete.html'
+    success_url = reverse_lazy('financials:bill_list')
 
+
+# Savings Goals
+class SavingsGoalListView(ListView):
+    model = SavingsGoal
+    template_name = 'financials/savingsgoal_list.html'
+
+    def get_queryset(self):
+        return SavingsGoal.objects.all()
+
+
+class SavingsGoalCreateView(CreateView):
+    model = SavingsGoal
+    form_class = SavingsGoalForm
+    template_name = 'financials/savingsgoal_form.html'
+    success_url = reverse_lazy('financials:savings_goal_list')
+
+
+class SavingsGoalUpdateView(UpdateView):
+    model = SavingsGoal
+    form_class = SavingsGoalForm
+    template_name = 'financials/savingsgoal_form.html'
+    success_url = reverse_lazy('financials:savings_goal_list')
+
+
+# Budgets
+class BudgetListView(ListView):
+    model = Budget
+    template_name = 'financials/budget_list.html'
+
+    def get_queryset(self):
+        return Budget.objects.all()
+
+
+class BudgetCreateView(CreateView):
+    model = Budget
+    form_class = BudgetForm
+    template_name = 'financials/budget_form.html'
+    success_url = reverse_lazy('financials:budget_list')
+
+
+class BudgetUpdateView(UpdateView):
+    model = Budget
+    form_class = BudgetForm
+    template_name = 'financials/budget_form.html'
+    success_url = reverse_lazy('financials:budget_list')
+
+
+# Expenses
+class ExpenseCreateView(CreateView):
+    model = Expense
+    form_class = ExpenseForm
+    template_name = 'financials/expense_form.html'
+    success_url = reverse_lazy('financials:expense_list')
+
+
+class ExpenseListView(ListView):
+    model = Expense
+    template_name = 'financials/expense_list.html'
+    context_object_name = 'expenses'
+
+    def get_queryset(self):
+        # Return all expenses, adjust if you want specific filtering
+        return Expense.objects.all()
+
+
+class ExpenseDeleteView(DeleteView):
+    model = Expense
+    template_name = 'financials/expense_confirm_delete.html'
+    success_url = reverse_lazy('financials:expense_list')
+
+# Expense Update View
+class ExpenseUpdateView(UpdateView):
+    model = Expense
+    form_class = ExpenseForm
+    template_name = 'financials/expense_form.html'
+    success_url = reverse_lazy('financials:expense_list')
+
+    def get_queryset(self):
+        # Return the queryset for the Expense model
+        return Expense.objects.all()
+
+
+# Income
+
+# IncomeListView
+class IncomeListView(ListView):
+    model = Income
+    template_name = 'financials/income_list.html'
+    context_object_name = 'incomes'
+
+    def get_context_data(self, **kwargs):
+        # Get the existing context
+        context = super().get_context_data(**kwargs)
+        # Calculate the total income
+        total_income = Income.objects.aggregate(total=models.Sum('amount'))['total'] or 0
+        # Add the total income to the context
+        context['total_income'] = total_income
+        return context
+
+
+class IncomeCreateView(CreateView):
+    model = Income
+    form_class = IncomeForm
+    template_name = 'financials/income_form.html'
+    success_url = reverse_lazy('financials:income_list')
+
+
+class IncomeUpdateView(UpdateView):
+    model = Income
+    form_class = IncomeForm
+    template_name = 'financials/income_form.html'
+    success_url = reverse_lazy('financials:income_list')
+
+
+class IncomeDeleteView(DeleteView):
+    model = Income
+    template_name = 'financials/income_confirm_delete.html'
+    success_url = reverse_lazy('financials:income_list')
+
+
+# Categories
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'financials/category_list.html'
+
+    def get_queryset(self):
+        # Return all categories
+        return Category.objects.all()
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'financials/category_form.html'
+    success_url = reverse_lazy('financials:category_list')
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'financials/category_form.html'
+    success_url = reverse_lazy('financials:category_list')
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = 'financials/category_confirm_delete.html'
+    success_url = reverse_lazy('financials:category_list')

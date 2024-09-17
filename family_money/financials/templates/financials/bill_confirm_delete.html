@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+{% block content %}
+<h1>Confirm Delete</h1>
+<p>Are you sure you want to delete the bill "{{ object.name }}"?</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Yes, delete</button>
+  <a href="{% url 'financials:bill_list' %}" class="btn btn-secondary"
+    >Cancel</a
+  >
+</form>
+{% endblock %}

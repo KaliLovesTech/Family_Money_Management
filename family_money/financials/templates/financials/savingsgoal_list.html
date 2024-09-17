@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Savings Goals</h2>
+
+  <a
+    href="{% url 'financials:savings_goal_create' %}"
+    class="btn btn-success mb-3"
+    >Add New Goal</a
+  >
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Target Amount</th>
+        <th>Current Amount</th>
+        <th>Deadline</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for goal in savings_goals %}
+      <tr>
+        <th>{{ forloop.counter }}</th>
+        <td>{{ goal.name }}</td>
+        <td>{{ goal.target_amount }}</td>
+        <td>{{ goal.current_amount }}</td>
+        <td>{{ goal.deadline }}</td>
+        <td>
+          <a
+            href="{% url 'financials:savings_goal_update' goal.pk %}"
+            class="btn btn-warning btn-sm"
+            >Edit</a
+          >
+          <a href="#" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

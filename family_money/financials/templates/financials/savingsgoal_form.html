@@ -1,0 +1,20 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %}
+<!-- prettier ignore -->
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">
+    {{ form.instance.pk|yesno:"Edit Savings Goal,Create Savings Goal" }}
+  </h2>
+
+  <form method="POST">
+    {% csrf_token %} {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+    <a
+      href="{% url 'financials:savings_goal_list' %}"
+      class="btn btn-secondary mt-3"
+      >Cancel</a
+    >
+  </form>
+</div>
+{% endblock %}

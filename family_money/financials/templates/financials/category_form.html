@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+{% block content %}
+<h1>{{ view.object.pk|yesno:"Edit,Create" }} Category</h1>
+
+<form method="POST" class="mb-3">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="btn btn-primary mt-3">Save</button>
+  <a href="{% url 'financials:category_list' %}" class="btn btn-secondary mt-3"
+    >Cancel</a
+  >
+</form>
+{% endblock %}
